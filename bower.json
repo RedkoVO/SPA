@@ -1,0 +1,13 @@
+{
+  "name": "SPA",
+  "description": "SPA",
+  "version": "1.0.0",
+  "homepage": "https://github.com/RedkoVO",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "1.5.x",
+    "angular-route": "1.5.x",
+    "bootstrap": "3.3.x"
+  }
+}

@@ -1,0 +1,92 @@
+<div ng-click="paginationSwitch()">{{ paginationType }}</div>
+<input placeholder="Search" ng-model="searchText" />
+
+<div ng-show="!pagination">
+    <div ng-controller="Pagination">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th ng-click="filterSwitch('id')">Id</th>
+                    <th ng-click="filterSwitch('firstName')">FirstName</th>
+                    <th ng-click="filterSwitch('lastName')">LastName</th>
+                    <th ng-click="filterSwitch('email')">Email</th>
+                    <th ng-click="filterSwitch('age')">Age</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in users | filter:searchText | orderBy:userFilter:revers">
+                  <td>{{ item.id }}</td>
+                  <td>{{ item.firstName }}</td>
+                  <td>{{ item.lastName }}</td>
+                  <td>{{ item.email }}</td>
+                  <td>{{ item.age }}</td>
+              </tr>
+            </tbody>
+      </table>
+
+        <ul class="pagination" >
+            <li ng-repeat="page in paginationList" ng-click="showPage(page.link)" ng-class="{'active': currentPageNum() == page.link}">
+              <a ng-bind-html="page.name"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div ng-show="pagination">
+    <div class="fixed" ng-controller="LazyLoad" when-scrolled="loadMore()">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th ng-click="filterSwitch('id')">Id</th>
+                    <th ng-click="filterSwitch('firstName')">FirstName</th>
+                    <th ng-click="filterSwitch('lastName')">LastName</th>
+                    <th ng-click="filterSwitch('email')">Email</th>
+                    <th ng-click="filterSwitch('age')">Age</th>
+                </tr>
+            </thead>
+            <tbody >
+              <tr ng-repeat="i in items | filter:searchText | orderBy:userFilter:revers">
+                  <td>{{ i.item.id }}</td>
+                  <td>{{ i.item.firstName }}</td>
+                  <td>{{ i.item.lastName }}</td>
+                  <td>{{ i.item.email }}</td>
+                  <td>{{ i.item.age }}</td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- <div>
+    <input class="search" placeholder="Search" ng-model="searchText" />
+    <ul class="home_block_product">
+        <li ng-repeat="item in users | filter:searchText">
+            <div>Id: {{ item.id }}</div>
+            <div>FirstName: {{ item.firstName }}</div>
+            <div>LastName: {{ item.lastName }}</div>
+            <div>Email: {{ item.email }}</div>
+            <div>Age: {{ item.age }}</div>
+            <hr />
+        </li>
+    </ul>
+
+    <ul class="pagination" >
+        <li ng-repeat="page in paginationList" ng-click="showPage(page.link)" ng-class="{'active': currentPageNum() == page.link}">
+          <a ng-bind-html="page.name"></a>
+        </li>
+    </ul>
+</div> -->
+
+    <!-- <input placeholder="Search" ng-model="searchText" />
+    <div id="fixed" style="height: 400px; overflow: auto;" when-scrolled="loadMore()">
+        <ul>
+          <li ng-repeat="i in items | filter:searchText" style="height: 120px">
+              <div>Id: {{ i.item.id }}</div>
+              <div>FirstName: {{ i.item.firstName }}</div>
+              <div>LastName: {{ i.item.lastName }}</div>
+              <div>Email: {{ i.item.email }}</div>
+              <div>Age: {{ i.item.age }}</div>
+              <hr />
+          </li>
+        </ul>
+    </div> -->

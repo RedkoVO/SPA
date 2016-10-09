@@ -1,0 +1,16 @@
+.pagination {
+    cursor: pointer;
+}
+
+.fixed {
+    height: 410px;
+    overflow: auto;
+}
+
+tbody tr {
+    height: 30px;
+}
+
+thead tr th {
+    cursor: pointer;
+}
