@@ -6,7 +6,7 @@ app.controller('Pagination', ['$scope', 'pagination', function ($scope, paginati
     $scope.users = pagination.getPageProducts();
     $scope.paginationList = pagination.getPaginationList();
 
-    /*Вывод постраничной навигации*/
+    /*show pagination*/
     $scope.showPage = function(page) {
     		if (page == 'prev') {
     			   $scope.users = pagination.getPrevPageProducts();

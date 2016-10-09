@@ -14,12 +14,18 @@
                 </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="item in users | filter:searchText | orderBy:userFilter:revers">
-                  <td>{{ item.id }}</td>
-                  <td>{{ item.firstName }}</td>
-                  <td>{{ item.lastName }}</td>
-                  <td>{{ item.email }}</td>
-                  <td>{{ item.age }}</td>
+              <tr ng-repeat="user in users | filter:searchText | orderBy:userFilter:revers">
+                  <td>{{ user.id }}</td>
+                  <td><edit-in-place value="user.firstName"></edit-in-place></td>
+                  <td><edit-in-place value="user.lastName"></edit-in-place></td>
+                  <td><edit-in-place value="user.email"></edit-in-place></td>
+                  <td>
+                      <edit-in-place value="user.age"></edit-in-place>
+
+                      <button type="button" class="btn btn-success">
+                          <span class="glyphicon glyphicon-modal-window"></span>
+                      </button>
+                  </td>
               </tr>
             </tbody>
       </table>
@@ -47,46 +53,18 @@
             <tbody >
               <tr ng-repeat="i in items | filter:searchText | orderBy:userFilter:revers">
                   <td>{{ i.item.id }}</td>
-                  <td>{{ i.item.firstName }}</td>
-                  <td>{{ i.item.lastName }}</td>
-                  <td>{{ i.item.email }}</td>
-                  <td>{{ i.item.age }}</td>
+                  <td><edit-in-place value="i.item.firstName"></edit-in-place></td>
+                  <td><edit-in-place value="i.item.lastName"></edit-in-place></td>
+                  <td><edit-in-place value="i.item.email"></edit-in-place></td>
+                  <td>
+                      <edit-in-place value="i.item.age"></edit-in-place>
+
+                      <button type="button" class="btn btn-success">
+                          <span class="glyphicon glyphicon-modal-window"></span>
+                      </button>
+                  </td>
               </tr>
             </tbody>
         </table>
     </div>
 </div>
-
-<!-- <div>
-    <input class="search" placeholder="Search" ng-model="searchText" />
-    <ul class="home_block_product">
-        <li ng-repeat="item in users | filter:searchText">
-            <div>Id: {{ item.id }}</div>
-            <div>FirstName: {{ item.firstName }}</div>
-            <div>LastName: {{ item.lastName }}</div>
-            <div>Email: {{ item.email }}</div>
-            <div>Age: {{ item.age }}</div>
-            <hr />
-        </li>
-    </ul>
-
-    <ul class="pagination" >
-        <li ng-repeat="page in paginationList" ng-click="showPage(page.link)" ng-class="{'active': currentPageNum() == page.link}">
-          <a ng-bind-html="page.name"></a>
-        </li>
-    </ul>
-</div> -->
-
-    <!-- <input placeholder="Search" ng-model="searchText" />
-    <div id="fixed" style="height: 400px; overflow: auto;" when-scrolled="loadMore()">
-        <ul>
-          <li ng-repeat="i in items | filter:searchText" style="height: 120px">
-              <div>Id: {{ i.item.id }}</div>
-              <div>FirstName: {{ i.item.firstName }}</div>
-              <div>LastName: {{ i.item.lastName }}</div>
-              <div>Email: {{ i.item.email }}</div>
-              <div>Age: {{ i.item.age }}</div>
-              <hr />
-          </li>
-        </ul>
-    </div> -->

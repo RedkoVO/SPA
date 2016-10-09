@@ -1,9 +1,9 @@
 'use strict'
 
 app.controller('LazyLoad', ['$scope', function ($scope) {
+    var counter = 0;
     $scope.users = users;
     $scope.items = [];
-    var counter = 0;
 
     $scope.loadMore = function() {
         for (var i = 0; i < 10; i++) {
