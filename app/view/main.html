@@ -1,70 +1,14 @@
-<div ng-click="paginationSwitch()">{{ paginationType }}</div>
-<input placeholder="Search" ng-model="search" />
-
-<div ng-show="!pagination">
-    <div ng-controller="Pagination">
-      <button class="btn btn-danger" ng-click="removeSelectedRows()">Remove Selected Rows</button>
-          <table class="table table-bordered">
-              <thead>
-                  <tr>
-                      <th ng-click="filterSwitch('id')">Id</th>
-                      <th ng-click="filterSwitch('firstName')">FirstName</th>
-                      <th ng-click="filterSwitch('lastName')">LastName</th>
-                      <th ng-click="filterSwitch('email')">Email</th>
-                      <th ng-click="filterSwitch('age')">Age</th>
-                  </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="user in filtered | pagination:(currentPage-1)*entryLimit | limitTo:entryLimit | orderBy:userFilter:revers">
-                    <td>{{ user.id }}</td>
-                    <td><edit-in-place value="user.firstName"></edit-in-place></td>
-                    <td><edit-in-place value="user.lastName"></edit-in-place></td>
-                    <td><edit-in-place value="user.email"></edit-in-place></td>
-                    <td>
-                        <edit-in-place value="user.age"></edit-in-place>
-
-                        <input type="checkbox" ng-model="tableSelection[$index]" />
-                        <a class="btn" ng-click="remove($index)">Delete</a>
-
-                        <button type="button" class="btn btn-success">
-                            <span class="glyphicon glyphicon-modal-window"></span>
-                        </button>
-                    </td>
-                </tr>
-              </tbody>
-        </table>
-
-        <pagination data-boundary-links="true" data-num-pages="noOfPages" data-current-page="currentPage" max-size="maxSize" class="pagination-small" data-previous-text="&laquo;" data-next-text="&raquo;"></pagination>
-    </div>
+<div class="header-filters">
+    <input type="text" placeholder="Search" class="form-control" ng-model="search" />
+    <select
+        name="repeatSelect"
+        ng-model="selectAge.model"
+        ng-options="option.name for option in selectAge.availableOptions"
+    >
+    </select>
+    <button type="button" class="btn btn-primary" ng-click="paginationSwitch()">{{ paginationType }}</button>
 </div>
 
-<div ng-show="pagination">
-    <div class="fixed" ng-controller="LazyLoad" when-scrolled="loadMore()">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th ng-click="filterSwitch('id')">Id</th>
-                    <th ng-click="filterSwitch('firstName')">FirstName</th>
-                    <th ng-click="filterSwitch('lastName')">LastName</th>
-                    <th ng-click="filterSwitch('email')">Email</th>
-                    <th ng-click="filterSwitch('age')">Age</th>
-                </tr>
-            </thead>
-            <tbody >
-              <tr ng-repeat="i in items | filter:search | orderBy:userFilter:revers">
-                  <td>{{ i.item.id }}</td>
-                  <td><edit-in-place value="i.item.firstName"></edit-in-place></td>
-                  <td><edit-in-place value="i.item.lastName"></edit-in-place></td>
-                  <td><edit-in-place value="i.item.email"></edit-in-place></td>
-                  <td>
-                      <edit-in-place value="i.item.age"></edit-in-place>
-
-                      <button type="button" class="btn btn-success">
-                          <span class="glyphicon glyphicon-modal-window"></span>
-                      </button>
-                  </td>
-              </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+<ng-include src="'app/view/pagination.html'"></ng-include>
+<ng-include src="'app/view/lazyLoad.html'"></ng-include>
+<ng-include src="'app/view/modal.html'"></ng-include>

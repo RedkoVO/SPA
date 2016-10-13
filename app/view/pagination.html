@@ -1,0 +1,34 @@
+<div ng-show="!pagination">
+    <div ng-controller="Pagination">
+      <button class="btn btn-danger remove" ng-click="removeSelectedUsers()">Remove Selected Users</button>
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                      <th ng-click="filterSwitch('id')">Id <i class="icon-chevron-down"></i></th>
+                      <th ng-click="filterSwitch('firstName')">FirstName <i class="icon-chevron-down"></i></th>
+                      <th ng-click="filterSwitch('lastName')">LastName <i class="icon-chevron-down"></i></th>
+                      <th ng-click="filterSwitch('email')">Email <i class="icon-chevron-down"></i></th>
+                      <th ng-click="filterSwitch('age')">Age <i class="icon-chevron-down"></i></th>
+                  </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="user in filtered | filter:byRange('age', selectAge) | pagination:(currentPage-1)*entryLimit | limitTo:entryLimit | orderBy:userFilter:revers">
+                    <td>{{ user.id }}</td>
+                    <td><edit-in-place class="form-control" value="user.firstName"></edit-in-place></td>
+                    <td><edit-in-place value="user.lastName"></edit-in-place></td>
+                    <td><edit-in-place value="user.email"></edit-in-place></td>
+                    <td class="age-column">
+                        <div class="extra-button">
+                            <edit-in-place value="user.age"></edit-in-place>
+                            <input class="checkbox" type="checkbox" ng-model="tableSelection[$index]" />
+                            <a class="btn btn-danger" ng-click="remove(user)">Delete</a>
+                            <button class="btn btn-success" ng-click="editrow($index)">edit</button>
+                        </div>
+                    </td>
+                </tr>
+              </tbody>
+        </table>
+
+        <pagination data-boundary-links="true" data-num-pages="noOfPages" data-current-page="currentPage" max-size="maxSize" class="pagination-small" data-previous-text="&laquo;" data-next-text="&raquo;"></pagination>
+    </div>
+</div>

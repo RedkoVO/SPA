@@ -1,0 +1,33 @@
+<div ng-show="pagination">
+    <div class="fixed" ng-controller="LazyLoad" when-scrolled="loadMore()">
+        <button class="btn btn-danger remove" ng-click="removeSelectedUsers()">Remove Selected Users</button>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th ng-click="filterSwitch('id')">Id <i class="icon-chevron-down"></i></th>
+                    <th ng-click="filterSwitch('firstName')">FirstName <i class="icon-chevron-down"></i></th>
+                    <th ng-click="filterSwitch('lastName')">LastName <i class="icon-chevron-down"></i></th>
+                    <th ng-click="filterSwitch('email')">Email <i class="icon-chevron-down"></i></th>
+                    <th ng-click="filterSwitch('age')">Age <i class="icon-chevron-down"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="i in items | filter:byRange('age', selectAge) | filter:search | orderBy:userFilter:revers">
+                  <td>{{ i.id }}</td>
+                  <td><edit-in-place value="i.firstName"></edit-in-place></td>
+                  <td><edit-in-place value="i.lastName"></edit-in-place></td>
+                  <td><edit-in-place value="i.email"></edit-in-place></td>
+                  <td class="age-column">
+                      <div class="extra-button">
+                          <edit-in-place value="i.age"></edit-in-place>
+                          <input class="checkbox" type="checkbox" ng-model="tableSelection[$index]" />
+                          <a class="btn btn-danger" ng-click="remove(i)">Delete</a>
+                          <button class="btn btn-success" ng-click="editrow($index)">edit</button>
+                      </div>
+                  </td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

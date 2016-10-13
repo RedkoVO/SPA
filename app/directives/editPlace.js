@@ -2,7 +2,7 @@ app.directive( 'editInPlace', function() {
     return {
         restrict: 'E',
         scope: { value: '=' },
-        template: '<span ng-click="edit()" ng-bind="value"></span><input ng-model="value"></input>',
+        template: '<span ng-click="edit()" ng-bind="value"></span><input type="text" ng-model="value"></input>',
         link: function ( $scope, element, attrs ) {
             var inputElement = angular.element( element.children()[1] );
 

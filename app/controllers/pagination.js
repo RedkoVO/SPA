@@ -1,7 +1,7 @@
 'use strict'
 
 app.controller('Pagination', ['$scope', 'filterFilter', function ($scope, filterFilter) {
-    /* pagination */
+    /* Pagination */
     $scope.users = users;
     $scope.currentPage = 1;
     $scope.maxSize = 10;
@@ -15,18 +15,19 @@ app.controller('Pagination', ['$scope', 'filterFilter', function ($scope, filter
     });
 
     /* User delete */
-    $scope.remove = function(index) {
-        $scope.users.splice(index, 1);
+    $scope.remove = function(item){
+        var index = $scope.users.indexOf(item)
+        $scope.users.splice(index,1);
     }
 
-    /* several user delete */
+    /* Several user delete */
     $scope.tableSelection = {};
-    $scope.removeSelectedRows = function() {
+    $scope.removeSelectedUsers = function() {
          for (var i = $scope.users.length - 1; i >= 0; i--) {
              if ($scope.tableSelection[i]) {
                  $scope.users.splice(i, 1);
                  delete $scope.tableSelection[i];
              }
          }
-   };
+    };
 }]);

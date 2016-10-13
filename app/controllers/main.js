@@ -20,4 +20,54 @@ app.controller('Main', ['$scope', function ($scope) {
 				$scope.paginationType = $scope.pagination ? 'Classic pagination' : 'Infinity scroll';
 				$scope.pagination = !$scope.pagination;
 		};
+
+		$scope.selectAge = {
+				model: null,
+				availableOptions: [
+					{id: '1', name: 'All age', minAge:0,  maxAge:50},
+					{id: '2', name: '0-10',    minAge:0,  maxAge:10},
+					{id: '3', name: '10-20',   minAge:10, maxAge:20},
+					{id: '4', name: '20-30',   minAge:20, maxAge:30},
+					{id: '5', name: '30-40',   minAge:30, maxAge:40},
+					{id: '6', name: '40 +',    minAge:40, maxAge:users.length}
+				]
+		};
+
+		$scope.selectAge.model = $scope.selectAge.availableOptions[0];
+
+		$scope.byRange = function (fieldName, value) {
+				var minValue = value.model.minAge;
+				var maxValue = value.model.maxAge;
+
+        return function predicateFunc(item) {
+          return minValue <= item[fieldName] && item[fieldName] <= maxValue;
+        };
+    };
+
+		$scope.modalShown = false;
+		$scope.toggleModal = function(user) {
+				$scope.modalShown = !$scope.modalShown;
+				console.log(user);
+		};
+
+
+		/* Modal window */
+		$scope.items=[{id:1,pname:'box1'},{id:2,pname:'box2'},{id:3,pname:'box3'}];
+		$scope.users = users;
+		$scope.editedItem = {};
+
+		$scope.editrow=function($index){
+			 $scope.istrue=true;
+			 $scope.$index = $index;
+			 angular.copy($scope.users[$index], $scope.editedItem);
+		}
+		$scope.closepopup=function(){
+			 $scope.istrue=false;
+
+		}
+		$scope.save=function(){
+			 $scope.istrue=false;
+			 angular.copy($scope.editedItem, $scope.users[$scope.$index])
+		}
+
 }]);
