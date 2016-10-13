@@ -1,8 +1,9 @@
 <div ng-click="paginationSwitch()">{{ paginationType }}</div>
-<input placeholder="Search" ng-model="searchText" />
+<input placeholder="Search" ng-model="search" />
 
 <div ng-show="!pagination">
     <div ng-controller="Pagination">
+      <button class="btn btn-danger" ng-click="removeSelectedRows()">Remove Selected Rows</button>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -14,13 +15,17 @@
                 </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="user in users | filter:searchText | orderBy:userFilter:revers">
+              <!-- <tr ng-repeat="user in users | filter:search | filter:filterAge | orderBy:userFilter:revers"> -->
+              <tr ng-repeat="user in users | filter:search | orderBy:userFilter:revers">
                   <td>{{ user.id }}</td>
                   <td><edit-in-place value="user.firstName"></edit-in-place></td>
                   <td><edit-in-place value="user.lastName"></edit-in-place></td>
                   <td><edit-in-place value="user.email"></edit-in-place></td>
                   <td>
                       <edit-in-place value="user.age"></edit-in-place>
+
+                      <input type="checkbox" ng-model="tableSelection[$index]" />
+                      <a class="btn" ng-click="remove(user)">Delete</a>
 
                       <button type="button" class="btn btn-success">
                           <span class="glyphicon glyphicon-modal-window"></span>
@@ -51,7 +56,7 @@
                 </tr>
             </thead>
             <tbody >
-              <tr ng-repeat="i in items | filter:searchText | orderBy:userFilter:revers">
+              <tr ng-repeat="i in items | filter:search | orderBy:userFilter:revers">
                   <td>{{ i.item.id }}</td>
                   <td><edit-in-place value="i.item.firstName"></edit-in-place></td>
                   <td><edit-in-place value="i.item.lastName"></edit-in-place></td>
