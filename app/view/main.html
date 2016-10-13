@@ -4,42 +4,37 @@
 <div ng-show="!pagination">
     <div ng-controller="Pagination">
       <button class="btn btn-danger" ng-click="removeSelectedRows()">Remove Selected Rows</button>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th ng-click="filterSwitch('id')">Id</th>
-                    <th ng-click="filterSwitch('firstName')">FirstName</th>
-                    <th ng-click="filterSwitch('lastName')">LastName</th>
-                    <th ng-click="filterSwitch('email')">Email</th>
-                    <th ng-click="filterSwitch('age')">Age</th>
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                      <th ng-click="filterSwitch('id')">Id</th>
+                      <th ng-click="filterSwitch('firstName')">FirstName</th>
+                      <th ng-click="filterSwitch('lastName')">LastName</th>
+                      <th ng-click="filterSwitch('email')">Email</th>
+                      <th ng-click="filterSwitch('age')">Age</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="user in filtered | pagination:(currentPage-1)*entryLimit | limitTo:entryLimit | orderBy:userFilter:revers">
+                    <td>{{ user.id }}</td>
+                    <td><edit-in-place value="user.firstName"></edit-in-place></td>
+                    <td><edit-in-place value="user.lastName"></edit-in-place></td>
+                    <td><edit-in-place value="user.email"></edit-in-place></td>
+                    <td>
+                        <edit-in-place value="user.age"></edit-in-place>
+
+                        <input type="checkbox" ng-model="tableSelection[$index]" />
+                        <a class="btn" ng-click="remove($index)">Delete</a>
+
+                        <button type="button" class="btn btn-success">
+                            <span class="glyphicon glyphicon-modal-window"></span>
+                        </button>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-              <!-- <tr ng-repeat="user in users | filter:search | filter:filterAge | orderBy:userFilter:revers"> -->
-              <tr ng-repeat="user in users | filter:search | orderBy:userFilter:revers">
-                  <td>{{ user.id }}</td>
-                  <td><edit-in-place value="user.firstName"></edit-in-place></td>
-                  <td><edit-in-place value="user.lastName"></edit-in-place></td>
-                  <td><edit-in-place value="user.email"></edit-in-place></td>
-                  <td>
-                      <edit-in-place value="user.age"></edit-in-place>
+              </tbody>
+        </table>
 
-                      <input type="checkbox" ng-model="tableSelection[$index]" />
-                      <a class="btn" ng-click="remove(user)">Delete</a>
-
-                      <button type="button" class="btn btn-success">
-                          <span class="glyphicon glyphicon-modal-window"></span>
-                      </button>
-                  </td>
-              </tr>
-            </tbody>
-      </table>
-
-        <ul class="pagination" >
-            <li ng-repeat="page in paginationList" ng-click="showPage(page.link)" ng-class="{'active': currentPageNum() == page.link}">
-              <a ng-bind-html="page.name"></a>
-            </li>
-        </ul>
+        <pagination data-boundary-links="true" data-num-pages="noOfPages" data-current-page="currentPage" max-size="maxSize" class="pagination-small" data-previous-text="&laquo;" data-next-text="&raquo;"></pagination>
     </div>
 </div>
 

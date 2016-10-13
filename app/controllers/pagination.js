@@ -1,29 +1,21 @@
 'use strict'
 
-app.controller('Pagination', ['$scope', 'pagination', function ($scope, pagination) {
-    /* show pagination */
-    pagination.setUsers(users);
+app.controller('Pagination', ['$scope', 'filterFilter', function ($scope, filterFilter) {
+    /* pagination */
+    $scope.users = users;
+    $scope.currentPage = 1;
+    $scope.maxSize = 10;
+    $scope.entryLimit = 10;
 
-    $scope.users = pagination.getPageUsers();
-    $scope.paginationList = pagination.getPaginationList();
+    $scope.noOfPages = Math.ceil($scope.users.length/$scope.entryLimit);
 
-    $scope.showPage = function(page) {
-    		if (page == 'prev') {
-    			   $scope.users = pagination.getPrevPageProducts();
-    		} else if (page == 'next') {
-    			   $scope.users = pagination.getNextPageProducts();
-    		} else {
-    			   $scope.users = pagination.getPageUsers( page );
-    		}
-    }
-
-    $scope.currentPageNum = function() {
-  		  return pagination.getCurrentPageNum();
-  	}
+    $scope.$watch('search', function(term) {
+        $scope.filtered = filterFilter($scope.users, term);
+        $scope.noOfPages = Math.ceil($scope.filtered.length/$scope.entryLimit);
+    });
 
     /* User delete */
-    $scope.remove = function(user) {
-        var index = $scope.users.indexOf(user);
+    $scope.remove = function(index) {
         $scope.users.splice(index, 1);
     }
 
@@ -37,9 +29,4 @@ app.controller('Pagination', ['$scope', 'pagination', function ($scope, paginati
              }
          }
    };
-
-
-    // $scope.filterAge = function(val) {
-    //     return (val.age > 10 && val.age < 30);
-    // };
 }]);
